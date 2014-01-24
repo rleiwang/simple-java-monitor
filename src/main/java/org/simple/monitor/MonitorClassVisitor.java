@@ -16,7 +16,8 @@ public class MonitorClassVisitor extends ClassVisitor {
 
   @Override
   public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-    if (name.startsWith("<") && name.endsWith(">")) {
+    if ((name.startsWith("<") && name.endsWith(">")) ||
+        !Configuration.monitorMethod(clzName, name)) {
       return super.visitMethod(access, name, desc, signature, exceptions);
     }
     String funcInfo = clzInfo + ":" + clzName + ":" + name + ":" + desc;

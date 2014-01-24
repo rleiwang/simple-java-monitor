@@ -11,7 +11,7 @@ public class Configuration {
   private static Map<String, Set<String>> _elements = new HashMap<>();
 
   static {
-    String conf = System.getenv("Simple.Monitor.Yaml");
+    String conf = System.getenv("SimpleMonitorYaml");
     if (conf != null) {
       try (Reader r = new FileReader(conf)) {
         Yaml yaml = new Yaml();
@@ -20,16 +20,13 @@ public class Configuration {
           _elements.put(entry.getKey(), new HashSet<>(entry.getValue()));
         }
       } catch (IOException ioe) {
-        System.out.println("error loading " + conf);
+        throw new RuntimeException("error loading " + conf, ioe);
       }
     }
   }
 
 
   public static boolean monitorClass(String clz) {
-    if (clz.startsWith("org/simple/monitor")) {
-      return false;
-    }
     return _elements.containsKey(clz);
   }
 

@@ -13,9 +13,9 @@ public class Stats {
     errs++;
   }
 
-  public void collect(double duration, long timestamp) {
+  public void collect(double elapsed, long timestamp) {
     count++;
-    duration += duration;
+    duration += elapsed;
     if (min > duration) {
       min = duration;
       minTimestamp = timestamp;

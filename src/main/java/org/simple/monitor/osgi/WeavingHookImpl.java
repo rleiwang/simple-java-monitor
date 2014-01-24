@@ -20,7 +20,8 @@ public class WeavingHookImpl implements WeavingHook {
   @Override
   public void weave(WovenClass clz) {
     String clzName = clz.getClassName();
-    if (!Configuration.monitorClass(clzName)) {
+    if (clzName.startsWith(PACKAGE_NAME) ||
+       !Configuration.monitorClass(clzName)) {
       return;
     }
 
